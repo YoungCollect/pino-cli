@@ -3,6 +3,11 @@
   "description": "Pino Shared Scripts For Projects",
   "version": "1.0.0",
   "license": "MIT",
+	"repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoungCollect/pino-cli.git",
+    "directory": "packages/pino-shared"
+  },
   "type": "module",
   "main": "./dist/pino-shared.cjs",
   "module": "./dist/pino-shared.js",
