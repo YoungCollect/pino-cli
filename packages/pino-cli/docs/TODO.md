@@ -1,7 +1,7 @@
 
 # @oneyoung/pino-cli@1.0
 
-- [x]默认开启 `lint on commit`，如果要支持不同的`lint on save`规则，那么需要确认 `vite` `webpack` `Vue-cli` 的配置。（已添加提示）
+- [x] 默认开启 `lint on commit`，如果要支持不同的`lint on save`规则，那么需要确认 `vite` `webpack` `Vue-cli` 的配置。（已添加提示）
 
 - [ ] 兼容 `Vue3` 生态 `Vue2` 生态 `react` 生态
 

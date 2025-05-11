@@ -1,46 +1,44 @@
 # Pino CLI
 
-该脚手架用来统一项目规范，包括 `commit`、`format`、`release`、`publish`等。
+English | [简体中文](./README-CN.md)
 
-## [1.Pino Module](./docs/1.Module.md)
+This CLI tool is used to standardize project specifications, including `commit`, `format`, `release`, `publish`, and more.
 
-基于 `cosmiconfig` 的模块寻址与安装。
+## [1.Pino Module](./docs/en/1.Module.md)
 
-## [2.Pino Format](./docs/2.Format.md)
+Module addressing and installation based on `cosmiconfig`.
 
-自动安装项目规范，集成 `prettier`、`eslint`、`commitlint`、`husky`等。
+## [2.Pino Format](./docs/en/2.Format.md)
 
-**目前默认支持 `Vue2` `Vue3`，`Typescript` 或者 `React` 迭代待做**。
+Automatically installs project specifications, integrating `prettier`, `eslint`, `commitlint`, `husky`, and more.
 
-**不依赖 `webpack`、`vite`等打包工具**。
+**Currently supports `Vue2` and `Vue3` by default. Support for `TypeScript` and `React` is planned for future iterations**.
 
-## [3.Pino Release](./docs/3.Release.md)
+**Does not depend on bundling tools like `webpack`, `vite`, etc**.
 
-基于 `monorepo` 的版本发布。
+## [3.Pino Release](./docs/en/3.Release.md)
 
-主要功能：
+Version release based on `monorepo`.
 
-- `changelog` 生成
-- `version` 更新
-- `tag` 创建
-- `commit` 创建
+Main features:
 
-## [4.Pino Publish](./docs/4.Publish.md)
+- Generate `changelog`
+- Update `version`
+- Create `tag`
+- Create `commit`
 
-基于 `monorepo` 的版本推送。
+## [4.Pino Publish](./docs/en/4.Publish.md)
 
-主要功能：
+Version publishing based on `monorepo`.
 
-- 推送 `latest` 或者指定 `tag` 至远程库
+Main features:
 
-## [5.Development](./docs/Development.md)
+- Push `latest` or specified `tag` to remote repository
 
-本地开发调试相关记录文档。
+## [5.Development](./docs/en/Development.md)
 
-## [6.TODO](./docs/TODO.md)
+Documentation for local development and debugging.
 
-`TODO` 列表。
+## [6.CHANGELOG](./CHANGELOG.md)
 
-## [7.ChangeLog](./CHANGELOG.md)
-
-版本迭代记录。
+Version iteration history.

@@ -3,6 +3,11 @@
   "description": "Pino CLI For Projects",
   "version": "1.0.0",
   "license": "MIT",
+	"repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoungCollect/pino-cli.git",
+    "directory": "packages/pino-cli"
+  },
   "bin": {
     "pino": "bin/pino.cjs"
   },
@@ -36,6 +41,7 @@
     "scripts/**/*",
     "src/**/*",
     "package.json",
+		"README-CN.md",
     "README.md"
   ],
   "engines": {
