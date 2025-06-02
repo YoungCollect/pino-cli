@@ -12,9 +12,19 @@ Module addressing and installation based on `cosmiconfig`.
 
 Automatically installs project specifications, integrating `prettier`, `eslint`, `commitlint`, `husky`, and more.
 
-**Currently supports `Vue2` and `Vue3` by default. Support for `TypeScript` and `React` is planned for future iterations**.
+**Currently supports `Vue2` 、`Vue3`、`TypeScript` and `React`**.
 
 **Does not depend on bundling tools like `webpack`, `vite`, etc**.
+
+You can use the command `npx pino format setup --[eslintType]` to install, where `eslintType` can be one of the following:
+
+```js
+const eslintExtensions = {
+	base: ['.js', '.jsx', '.cjs', '.mjs'],
+	vue: ['.vue'],
+	ts: ['.ts', '.tsx']
+}
+```
 
 ## [3.Pino Release](./docs/en/3.Release.md)
 

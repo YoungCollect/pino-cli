@@ -12,9 +12,19 @@
 
 自动安装项目规范，集成 `prettier`、`eslint`、`commitlint`、`husky`等。
 
-**目前默认支持 `Vue2` `Vue3`，`Typescript` 或者 `React` 迭代待做**。
+**目前默认支持 `Vue2`、`Vue3`、`React` 以及 `Typescript`**。
 
 **不依赖 `webpack`、`vite`等打包工具**。
+
+可使用 `npx pino format setup --[eslintType]` 指令进行安装，`eslintType` 可选值如下：
+
+```js
+const eslintExtensions = {
+  base: ['.js', '.jsx', '.cjs', '.mjs'],
+  vue: ['.vue'],
+  ts: ['.ts', '.tsx']
+}
+```
 
 ## [3.Pino Release](./docs/zh-cn/3.Release.md)
 
