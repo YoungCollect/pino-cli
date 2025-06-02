@@ -15,9 +15,9 @@ class PinoFormat {
   constructor({ cwd = process.cwd() } = {}) {
     this.cwd = cwd
   }
-  async setup({ ts = false } = {}) {
+  async setup(options = {}) {
     try {
-      const { options } = this
+      this.options = options
       this.projectRoot = await pinoSharedFs.findProjectRoot(this.cwd)
       this.pkgPath = path.join(this.projectRoot, 'package.json')
       this.originalPkg = require(this.pkgPath)

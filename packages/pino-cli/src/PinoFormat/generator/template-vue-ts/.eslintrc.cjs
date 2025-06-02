@@ -1,7 +1,7 @@
 const { extendEslintConfig } = require('@oneyoung/pino-cli/constants/eslint')
 const pkg = require('./package.json')
 
-const { lintExtends, lintRules } = extendEslintConfig(['vue'], { pkg })
+const { lintExtends, lintRules } = extendEslintConfig(['vue', 'ts'], { pkg })
 
 module.exports = {
   root: true,
@@ -10,9 +10,9 @@ module.exports = {
     'vue/setup-compiler-macros': true // For vue3 setup syntax
   },
   extends: [...lintExtends],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    // @babel/eslint-parser can transform new grammar better than default espree
-    parser: '@babel/eslint-parser',
+    parser: '@typescript-eslint/parser',
     babelOptions: {
       parserOpts: {
         // Support parse jsx

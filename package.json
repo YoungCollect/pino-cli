@@ -9,12 +9,12 @@
     "build": "vite build",
     "build:lib": "node scripts/build-lib.js",
     "preview": "vite preview",
-    "format:setup": "pino format setup",
+    "format:setup": "pino format setup --vue",
     "test:lint-staged": "npx lint-staged --debug",
     "format": "npm run format:lint && npm run format:pretty",
-    "format:lint": "eslint . --ext .js,.jsx,.vue,.cjs,.mjs --fix --config .eslintrc.cjs --no-eslintrc",
+    "format:lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.vue --fix --config .eslintrc.cjs --no-eslintrc",
     "format:pretty": "prettier . --write",
-		"postpublish": "pnpm build:lib"
+    "postpublish": "pnpm build:lib"
   },
   "dependencies": {
     "vue": "^3.5.13"
@@ -47,6 +47,7 @@
     "commit-msg": "commitlint --edit"
   },
   "lint-staged": {
-    "*.{js,jsx,vue,cjs,mjs}": "eslint --fix --config .eslintrc.cjs --no-eslintrc"
+    "*.{js,jsx,vue,cjs,mjs}": "eslint --fix --config .eslintrc.cjs --no-eslintrc",
+    "*.{js,jsx,cjs,mjs,vue}": "eslint --fix --config .eslintrc.cjs --no-eslintrc"
   }
 }

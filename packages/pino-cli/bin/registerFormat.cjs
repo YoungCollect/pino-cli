@@ -5,10 +5,14 @@ exports.registerFormat = program => {
   const pinoFormatCommand = program
     .command('format')
     .description('Pino format setup')
-    .option('--ts', 'Setup typescript format') // TODO: 集成typescript
+    .option('--vue', 'Setup vue format')
+    .option('--ts', 'Setup typescript format')
     .action(async options => {
+      const { vue, ts } = options
       const pinoFormat = new PinoFormat()
-      await pinoFormat.setup(options)
+      await pinoFormat.setup({
+        eslintTypes: [vue ? 'vue' : '', ts ? 'ts' : '']
+      })
     })
 
   pinoFormatCommand

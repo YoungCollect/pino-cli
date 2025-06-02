@@ -55,7 +55,7 @@ exports.defaultLogChangelog = async function (monorepo, pkgName) {
   return exports.logRecentCommits(monorepo, pkgName)
 }
 
-exports.defaultGenerateChangelog = async function (monorepo, pkgName, version) {
+exports.defaultGenerateChangelog = async function (monorepo, pkgName) {
   pinoSharedTips.step('\nGenerating changelog...')
 
   // https://github.com/zqinmiao/blog/issues/12

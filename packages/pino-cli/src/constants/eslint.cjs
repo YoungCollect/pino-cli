@@ -1,27 +1,26 @@
 const { pinoSharedTips } = require('@oneyoung/pino-shared')
 
+const eslintExtensions = {
+  base: ['.js', '.jsx', '.cjs', '.mjs'],
+  vue: ['.vue'],
+  ts: ['.ts', '.tsx']
+}
+
 const configExtends = {
-  // transform plugin:vue/essential in '@vue/cli-plugin-eslint' to plugin:vue/recommended
-  base: ['plugin:vue/recommended'], // 'plugin:vue/vue3-recommended'
-  baseVue3: ['plugin:vue/vue3-recommended'],
-  standard: ['@vue/standard'],
-  prettier: [
+  base: [
     'eslint:recommended',
     // plugin:prettier/recommended will enable eslint-config-prettier and eslint-plugin-prettier and some rules.
     'plugin:prettier/recommended'
-  ]
+  ],
+  // transform plugin:vue/essential in '@vue/cli-plugin-eslint' to plugin:vue/recommended
+  vue2: ['plugin:vue/recommended'], // 'plugin:vue/vue3-recommended'
+  vue3: ['plugin:vue/vue3-recommended'],
+  // standard: ['@vue/standard'],
+  ts: ['plugin:@typescript-eslint/recommended']
 }
 
 const configRules = {
   base: {
-    // 'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vue/multi-word-component-names': 'off'
-  },
-  standard: {
-    'vue/html-closing-bracket-newline': 'off'
-  },
-  prettier: {
     // Make function space in vue template, but don't use. Eslint will conflict with Prettier.
     // 'space-before-function-paren': 'error',
     'no-unused-vars': [
@@ -30,7 +29,12 @@ const configRules = {
         // Don't lint unused function params
         args: 'none'
       }
-    ],
+    ]
+  },
+  vue: {
+    // 'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'vue/multi-word-component-names': 'off',
     // Keep the element closing itself when not contain content.
     'vue/html-self-closing': [
       'error',
@@ -41,33 +45,74 @@ const configRules = {
         }
       }
     ]
+  },
+  // standard: {
+  //   'vue/html-closing-bracket-newline': 'off'
+  // },
+  ts: {
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        // Don't lint unused function params
+        args: 'none'
+      }
+    ],
+    '@typescript-eslint/no-var-requires': 'off'
   }
 }
 
-exports.getExtends = function (type = 'prettier', options) {
-  const { pkg = {} } = options
-  let baseExtends = configExtends.base
+exports.getEslintExtensions = (eslintTypes = ['vue']) => {
+  const { base } = eslintExtensions
+  const result = [...base]
+  const currentTypes = Array.isArray(eslintTypes) ? eslintTypes : [eslintTypes]
+  currentTypes.forEach(type => {
+    if (type !== 'base' && eslintExtensions[type]) {
+      result.push(...eslintExtensions[type])
+    }
+  })
+  return result
+}
 
+exports.getExtends = function (eslintTypes = ['vue'], options) {
+  const { pkg = {} } = options
+  const { base } = configExtends
+  const currentTypes = Array.isArray(eslintTypes) ? eslintTypes : [eslintTypes]
+
+  const result = [...base]
   // 获取Vue版本号并判断主版本号
   const vueVersion = pkg.dependencies?.vue || pkg.devDependencies?.vue
-  if (vueVersion && vueVersion.match(/^\^?3/)) {
-    baseExtends = configExtends.baseVue3
-  }
-  pinoSharedTips.info(`Vue version: ${vueVersion}`)
-  if (type === 'base') {
-    return baseExtends
-  }
-  return [...baseExtends, ...configExtends[type]]
+  currentTypes.forEach(type => {
+    if (type === 'vue' && vueVersion) {
+      if (vueVersion.match(/^\^?3/)) {
+        type = 'vue3'
+      } else {
+        type = 'vue2'
+      }
+      pinoSharedTips.info(`Vue version: ${vueVersion}`)
+    }
+    if (type !== 'base' && configExtends[type]) {
+      result.push(...configExtends[type])
+    }
+  })
+
+  return result
 }
 
-exports.getRules = function (type = 'prettier', options) {
-  if (type === 'base') {
-    return configRules[type]
+exports.getRules = function (eslintTypes = ['vue'], options) {
+  const { base } = configRules
+  let result = {
+    ...base
   }
-  return {
-    ...configRules.base,
-    ...configRules[type]
-  }
+  const currentTypes = Array.isArray(eslintTypes) ? eslintTypes : [eslintTypes]
+  currentTypes.forEach(type => {
+    if (type !== 'base' && configRules[type]) {
+      result = {
+        ...result,
+        ...configRules[type]
+      }
+    }
+  })
+  return result
 }
 
 /**
@@ -76,13 +121,9 @@ exports.getRules = function (type = 'prettier', options) {
  * @param {object} options.pkg - The package.json of project.
  * @returns {object} - The eslint config.
  */
-exports.extendEslintConfig = function (type = 'prettier', options = {}) {
-  // Recommend to use prettier in team.
-  if (type !== 'prettier') {
-    pinoSharedTips.warn(`Recommend to use 'prettier' setting in eslint config.`)
-  }
+exports.extendEslintConfig = function (eslintTypes = ['vue'], options = {}) {
   return {
-    lintExtends: exports.getExtends(type, options),
-    lintRules: exports.getRules(type, options)
+    lintExtends: exports.getExtends(eslintTypes, options),
+    lintRules: exports.getRules(eslintTypes, options)
   }
 }

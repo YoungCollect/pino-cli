@@ -1,4 +1,6 @@
-const { extendCommitlintConfig } = require('@oneyoung/pino-cli/constants/commit')
+const {
+  extendCommitlintConfig
+} = require('@oneyoung/pino-cli/constants/commit')
 
 const { lintExtends, lintRules } = extendCommitlintConfig()
 
