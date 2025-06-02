@@ -1,3 +1,18 @@
+# 1.1.0 (2025-06-02)
+
+
+### ✨ Features
+
+* **docs:** 更新中英文 README 文件 ([e8dbd29](https://github.com/YoungCollect/pino-cli/commit/e8dbd29edce555a3edf80d6140de2b2b69a35362))
+* **format:** 增加 Vue 和 TypeScript 的格式化支持 ([62af40b](https://github.com/YoungCollect/pino-cli/commit/62af40bf15287730068f089f9c3614f6874aa485))
+
+
+### ✏️ Documentation
+
+* **README:** update docs and links! ([3d395ff](https://github.com/YoungCollect/pino-cli/commit/3d395ff6471f4da1eaf0821025e4ce54567b87ee))
+
+
+
 # 1.0.0 (2025-05-09)
 
 
