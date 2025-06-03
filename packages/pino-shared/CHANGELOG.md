@@ -1,3 +1,12 @@
+# 1.2.0 (2025-06-03)
+
+
+### ✨ Features
+
+* **pino-cli:** 添加ignoreEslint 配置和依赖的选项 ([8805e49](https://github.com/YoungCollect/pino-cli/commit/8805e494f8946249d66157a173eec4f1b1b566e7))
+
+
+
 # 1.1.0 (2025-06-02)
 
 
