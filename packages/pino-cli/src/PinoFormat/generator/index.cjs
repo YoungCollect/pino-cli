@@ -24,7 +24,7 @@ exports.generator = async (pkg, options) => {
   const pinoModule = new PinoModule({
     moduleName: 'PinoFormat'
   })
-  const { eslintTypes } = options
+  const { eslintTypes, ignoreEslint = false } = options
   // const templateList = pkg.type === 'module' ? [baseTemplate, esTemplate] : [baseTemplate, cjsTemplate]
   let templateList = []
   if (eslintTypes.includes('vue') && eslintTypes.includes('ts')) {
@@ -48,6 +48,7 @@ exports.generator = async (pkg, options) => {
     dirName: '.',
     force: true,
     level: -1,
-    parallel: false
+    parallel: false,
+    ignoreReg: ignoreEslint ? /^\.eslintrc\./ : null
   })
 }

@@ -47,8 +47,9 @@ async function postinstall({
   filename = '',
   template = '',
   searchPlaces = [],
+  force = false,
   level = 0,
-  force = false
+  ignoreReg = null
 } = {}) {
   // 跳过特定环境
   if (process.env.NODE_ENV === 'production') {
@@ -75,7 +76,10 @@ async function postinstall({
     tips.info(`Target path: ${targetPath}`)
 
     // 4. 复制文件
-    const copyPathMap = await copyFile(templatePath, targetPath, { level })
+    const copyPathMap = await copyFile(templatePath, targetPath, {
+      level,
+      ignoreReg
+    })
 
     tips.success(`Setup [${moduleName}] completed successfully.`)
     const isDirectory = fs.statSync(templatePath).isDirectory()

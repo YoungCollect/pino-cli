@@ -50,7 +50,7 @@ function processDestPath(dest, level = 0) {
  * @param {string} src - 源目录路径
  * @param {string} dest - 目标目录路径
  */
-async function copyDir(src, dest, { level = 0 } = {}) {
+async function copyDir(src, dest, { level = 0, ignoreReg = null } = {}) {
   const finalDest = processDestPath(dest, level)
   await fs.mkdir(finalDest, { recursive: true })
   const entries = await fs.readdir(src, { withFileTypes: true })
@@ -65,12 +65,16 @@ async function copyDir(src, dest, { level = 0 } = {}) {
     const destPath = path.join(finalDest, entry.name)
 
     if (entry.isDirectory()) {
-      await copyDir(srcPath, destPath)
+      await copyDir(srcPath, destPath, { ignoreReg })
+      copyPathMap.srcList.push(srcPath)
+      copyPathMap.destList.push(destPath)
     } else {
-      await copyFile(srcPath, destPath)
+      const { srcList, destList } = await copyFile(srcPath, destPath, {
+        ignoreReg
+      })
+      copyPathMap.srcList.push(...srcList)
+      copyPathMap.destList.push(...destList)
     }
-    copyPathMap.srcList.push(srcPath)
-    copyPathMap.destList.push(destPath)
   }
   return copyPathMap
 }
@@ -80,17 +84,20 @@ async function copyDir(src, dest, { level = 0 } = {}) {
  * @param {string} src - 源路径
  * @param {string} dest - 目标路径
  */
-async function copyFile(src, dest, { level = 0 } = {}) {
+async function copyFile(src, dest, { level = 0, ignoreReg = null } = {}) {
   try {
     const finalDest = processDestPath(dest, level)
     const stats = await fs.stat(src)
-
     if (stats.isDirectory()) {
-      return await copyDir(src, finalDest)
+      return await copyDir(src, finalDest, { ignoreReg })
     } else {
       const copyPathMap = {
         srcList: [],
         destList: []
+      }
+      const basename = path.basename(src)
+      if (ignoreReg && ignoreReg.test(basename)) {
+        return copyPathMap
       }
       await ensureDir(finalDest)
       await fs.copyFile(src, finalDest)

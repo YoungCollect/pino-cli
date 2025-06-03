@@ -7,11 +7,13 @@ exports.registerFormat = program => {
     .description('Pino format setup')
     .option('--vue', 'Setup vue format')
     .option('--ts', 'Setup typescript format')
+    .option('--ignore-eslint', 'Ignore eslint config file and deps')
     .action(async options => {
-      const { vue, ts } = options
+      const { vue, ts, ignoreEslint } = options
       const pinoFormat = new PinoFormat()
       await pinoFormat.setup({
-        eslintTypes: [vue ? 'vue' : '', ts ? 'ts' : '']
+        eslintTypes: [vue ? 'vue' : '', ts ? 'ts' : ''],
+        ignoreEslint
       })
     })
 
